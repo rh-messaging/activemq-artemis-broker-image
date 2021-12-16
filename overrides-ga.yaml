@@ -1,0 +1,69 @@
+#See https://docs.cekit.io/en/latest/descriptor/overrides.html
+name: &name "amq-broker-7/amq-broker-710-rhel8"
+description: "Red Hat AMQ 7.10.0 container image"
+version: &version "7.10"
+from: "registry-proxy.engineering.redhat.com/rh-osbs/ubi8:latest"
+
+labels:
+  - name: "io.k8s.display-name"
+    value: "Red Hat AMQ Broker 7.10.0"
+  - name: "com.redhat.component"
+    value: "amq-broker-rhel8-container"
+  - name: "org.jboss.product"
+    value: "amq"
+  - name: "org.jboss.product.version"
+    value: "7.10.0"
+  - name: "org.jboss.product.amq.version"
+    value: "7.10.0"
+
+envs:
+  - name: "JBOSS_PRODUCT"
+    value: "AMQ"
+  - name: "JBOSS_IMAGE_NAME"
+    value: *name
+  - name: "JBOSS_IMAGE_VERSION"
+    value: *version
+  - name: "JBOSS_AMQ_VERSION"
+    value: "7.10.0"
+  - name: "PRODUCT_VERSION"
+    value: "7.10.0"
+  - name: "APACHE_ARTEMIS_VERSION"
+    value: "2.20.0.redhat-00001"
+
+artifacts:
+  - name: apache-artemis-bin
+    target: apache-artemis-bin.zip
+    url: http://download.devel.redhat.com/brewroot/packages/org.jboss.rh-messaging.amq-amq-broker-parent/7.10.0.ER1_redhat_00001/1/maven/org/jboss/rh-messaging/amq/amq-broker/7.10.0.ER1-redhat-00001/amq-broker-7.10.0.ER1-redhat-00001-bin.zip
+    md5: bbb44ef69ec512822585eccf5695edf2
+
+modules:
+  repositories:
+    - name: cct_module
+      git:
+        url: https://github.com/artemiscloud/cct_module.git
+        ref: 0.38.0-amq
+
+packages:
+  content_sets:
+    x86_64:
+      - rhel-8-for-x86_64-baseos-rpms
+      - rhel-8-for-x86_64-appstream-rpms
+      - rhel-8-for-x86_64-supplementary-rpms
+
+osbs:
+  configuration:
+    container: #See https://osbs.readthedocs.io/en/latest/users.html#image-configuration
+      compose:
+        inherit: true
+        signing_intent: release
+        pulp_repos: true
+      platforms:
+        only:
+          - x86_64
+      image_build_method: imagebuilder
+      tags:
+        - "7.10.0.ER1"
+
+  repository:
+    name: containers/amq-broker
+    branch: amq-broker-7.10-rhel-8
