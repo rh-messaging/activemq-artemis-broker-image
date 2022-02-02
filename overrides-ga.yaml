@@ -28,13 +28,13 @@ envs:
   - name: "PRODUCT_VERSION"
     value: "7.10.0"
   - name: "APACHE_ARTEMIS_VERSION"
-    value: "2.20.0.redhat-00001"
+    value: "2.20.0.redhat-00006"
 
 artifacts:
   - name: apache-artemis-bin
     target: apache-artemis-bin.zip
-    url: http://download.devel.redhat.com/brewroot/packages/org.jboss.rh-messaging.amq-amq-broker-parent/7.10.0.ER1_redhat_00001/1/maven/org/jboss/rh-messaging/amq/amq-broker/7.10.0.ER1-redhat-00001/amq-broker-7.10.0.ER1-redhat-00001-bin.zip
-    md5: bbb44ef69ec512822585eccf5695edf2
+    url: http://download.devel.redhat.com/brewroot/packages/org.jboss.rh-messaging.amq-amq-broker-parent/7.10.0.ER1_redhat_00002/1/maven/org/jboss/rh-messaging/amq/amq-broker/7.10.0.ER1-redhat-00002/amq-broker-7.10.0.ER1-redhat-00002-bin.zip
+    md5: b2630397e3d7716cddb567354ad2e097
 
 modules:
   repositories:
