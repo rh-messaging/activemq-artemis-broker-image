@@ -1,6 +1,6 @@
 #See https://docs.cekit.io/en/latest/descriptor/overrides.html
 name: &name "amq-broker-7/amq-broker-710-rhel8"
-description: "Red Hat AMQ Broker 7.10.0 container image"
+description: "Red Hat AMQ Broker 7.10.0 PATCH-3225 container image"
 version: &version "7.10"
 from: "registry-proxy.engineering.redhat.com/rh-osbs/ubi8-openjdk-17@sha256:4b74bdf6941e38705d75996c89e7ce3c1a9874884056e7f05cdf1890cd0d8076"
 
@@ -30,13 +30,13 @@ envs:
   - name: "PRODUCT_VERSION"
     value: "7.10.0"
   - name: "APACHE_ARTEMIS_VERSION"
-    value: "2.21.0.redhat-00025"
+    value: "2.21.0-PATCH-3225"
 
 artifacts:
   - name: apache-artemis-bin
     target: apache-artemis-bin.zip
-    url: http://download.devel.redhat.com/brewroot/packages/org.jboss.rh-messaging.amq-amq-broker-parent/7.10.0.CR5_redhat_00001/1/maven/org/jboss/rh-messaging/amq/amq-broker/7.10.0.CR5-redhat-00001/amq-broker-7.10.0.CR5-redhat-00001-bin.zip
-    md5: 9130833dcc17a1eb58a06acd12c269ab
+    # url: http://download.devel.redhat.com/brewroot/packages/org.jboss.rh-messaging.amq-amq-broker-parent/7.10.0.CR5_redhat_00001/1/maven/org/jboss/rh-messaging/amq/amq-broker/7.10.0.CR5-redhat-00001/amq-broker-7.10.0.CR5-redhat-00001-bin.zip
+    md5: 875b9e70809489c4cd31aa540d735fbc
 
 modules:
   repositories:
@@ -71,7 +71,7 @@ osbs:
           - ppc64le
       image_build_method: imagebuilder
       tags:
-        - "7.10.0.OPR.4.CR1"
+        - "7.10.0.OPR.4.CR1-PATCH-3225"
 
   repository:
     name: containers/amq-broker
