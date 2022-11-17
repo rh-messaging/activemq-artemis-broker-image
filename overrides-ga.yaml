@@ -35,8 +35,10 @@ envs:
 artifacts:
   - name: apache-artemis-bin
     target: apache-artemis-bin.zip
-    url: http://download.devel.redhat.com/brewroot/packages/org.jboss.rh-messaging.amq-amq-broker-parent/7.10.2.CR3_redhat_00001/1/maven/org/jboss/rh-messaging/amq/amq-broker/7.10.2.CR3-redhat-00001/amq-broker-7.10.2.CR3-redhat-00001-bin.zip
+    url: http://download.devel.redhat.com/devel/candidates/amq/amq-broker-7.10.2.CR3/amq-broker-7.10.2.CR3-bin.zip
     md5: 46fe2feb9a3e2109ef3c719fa2a7e7c2
+    source-url: http://download.devel.redhat.com/devel/candidates/amq/amq-broker-7.10.2.CR3/amq-broker-7.10.2.CR3-src.zip
+    source-md5: ddc02f09176505215462e8edaa550b24
 
 modules:
   repositories:
