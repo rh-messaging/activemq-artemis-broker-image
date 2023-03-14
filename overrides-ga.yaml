@@ -1,7 +1,7 @@
 #See https://docs.cekit.io/en/latest/descriptor/overrides.html
 name: &name "amq-broker-7/amq-broker-711-rhel8"
 description: "Red Hat AMQ Broker 7.11.0 container image"
-version: &version "7.11"
+version: &version "7.11.0"
 from: "registry-proxy.engineering.redhat.com/rh-osbs/ubi8-openjdk-17@sha256:609dbeee9b71f873335bf72e0dceab4071480b3a603c264dbf9ce86696bc26b8"
 labels:
   - name: "com.redhat.component"
@@ -67,7 +67,7 @@ osbs:
           - ppc64le
       image_build_method: imagebuilder
       tags:
-        - "7.11.0.CON.1.CR1"
+        - "7.11.0.CON.1.CR2"
         - "7.11.0.CON.1"
         - "7.11.0"
   repository:
