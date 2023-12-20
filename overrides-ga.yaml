@@ -32,7 +32,7 @@ envs:
 artifacts:
   - name: apache-artemis-bin
     target: apache-artemis-bin.zip
-    url: http://download.devel.redhat.com/devel/candidates/amq//amq-broker-7.11.4.CR1/amq-broker-7.11.4.CR1-bin.zip
+    # url: http://download.devel.redhat.com/devel/candidates/amq//amq-broker-7.11.4.CR1/amq-broker-7.11.4.CR1-bin.zip
 
     md5: bdd9ab3cd11c33ff9dced93f6e4a25cc
     source-url: http://download.devel.redhat.com/devel/candidates/amq//amq-broker-7.11.4.CR1/amq-broker-7.11.4.CR1-src.zip
