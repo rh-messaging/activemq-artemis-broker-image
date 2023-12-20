@@ -33,7 +33,8 @@ artifacts:
   - name: apache-artemis-bin
     target: apache-artemis-bin.zip
     url: http://download.devel.redhat.com/devel/candidates/amq//amq-broker-7.11.4.CR1/amq-broker-7.11.4.CR1-bin.zip
-    md5: 22595b98b1f26854d74765adec5a8745
+
+    md5: bdd9ab3cd11c33ff9dced93f6e4a25cc
     source-url: http://download.devel.redhat.com/devel/candidates/amq//amq-broker-7.11.4.CR1/amq-broker-7.11.4.CR1-src.zip
     source-md5: c76b9bf47973a158ea9bedfdaa5c037e
 modules:
@@ -67,9 +68,7 @@ osbs:
           - ppc64le
       image_build_method: imagebuilder
       tags:
-        - "7.11.4.CON.1.CR1"
-        - "7.11.4.CON.1"
-        - "7.11.4"
+        - "7.11.4.PATCH.3266"
   repository:
     name: containers/amq-broker
     branch: amq-broker-7.11-rhel-8
