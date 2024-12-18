@@ -1,5 +1,5 @@
 #See https://docs.cekit.io/en/latest/descriptor/overrides.html
-name: &name "amq-broker-/amq-broker--rhel9"
+name: &name "amq-broker-8/amq-broker-80-rhel9"
 description: "Red Hat AMQ Broker 8.0.0 container image"
 version: &version "8.0.0"
 from: "registry-proxy.engineering.redhat.com/rh-osbs/ubi9-openjdk-17@sha256:21f4cf3a8e97f69ad7ca67637ce0ba8e6163654646f60cc078598916658f4401"
@@ -76,4 +76,4 @@ osbs:
         - "8.0.0"
   repository:
     name: containers/amq-broker
-    branch: amq-broker-.-rhel-9
+    branch: amq-broker-8.0-rhel-9
