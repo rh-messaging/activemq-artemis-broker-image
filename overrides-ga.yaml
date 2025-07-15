@@ -2,7 +2,7 @@
 name: &name "amq-broker-7/amq-broker-713-rhel9"
 description: "Red Hat AMQ Broker 7.13.1 container image"
 version: &version "7.13.1"
-from: "registry-proxy.engineering.redhat.com/rh-osbs/ubi9-openjdk-17@sha256:0ffdcb7e1d33f8206c6c31b69670ed4f8525e0fd8f55d6fdde142a059faf4ffc"
+from: "registry-proxy.engineering.redhat.com/rh-osbs/ubi9-openjdk-17@sha256:010d506942999ea8585b98da8a467607aa5479b55b73332a18079d04919103e3"
 labels:
   - name: "com.redhat.component"
     value: "amq-broker-rhel9-container"
