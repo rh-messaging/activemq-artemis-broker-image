@@ -37,14 +37,14 @@ jobs:
       - name: Checkout the repo
         uses: actions/checkout@v6
 
-      - name: Update ActiveMQ Artemis
+      - name: Update Apache Artemis
         if: ${{ github.event_name == 'schedule' || inputs.snapshot }}
         run: |
-          ACTIVEMQ_ARTEMIS_VERSION=$(curl https://raw.githubusercontent.com/apache/activemq-artemis/main/pom.xml | grep -m 1 -oP '(?<=version>)[^<]+')
-          ACTIVEMQ_ARTEMIS_SNAPSHOT_VERSION=$(curl https://repository.apache.org/content/repositories/snapshots/org/apache/activemq/apache-artemis/${ACTIVEMQ_ARTEMIS_VERSION}/maven-metadata.xml | grep -m 1 -oP '(?<=value>)[^<]+')
-          APACHE_ARTEMIS_BIN_URL="https://repository.apache.org/content/repositories/snapshots/org/apache/activemq/apache-artemis/${ACTIVEMQ_ARTEMIS_VERSION}/apache-artemis-${ACTIVEMQ_ARTEMIS_SNAPSHOT_VERSION}-bin.zip"
+          APACHE_ARTEMIS_VERSION=$(curl https://raw.githubusercontent.com/apache/artemis/main/pom.xml | grep -m 1 -oP '(?<=version>)[^<]+')
+          APACHE_ARTEMIS_SNAPSHOT_VERSION=$(curl https://repository.apache.org/content/repositories/snapshots/org/apache/artemis/apache-artemis/${APACHE_ARTEMIS_VERSION}/maven-metadata.xml | grep -m 1 -oP '(?<=value>)[^<]+')
+          APACHE_ARTEMIS_BIN_URL="https://repository.apache.org/content/repositories/snapshots/org/apache/artemis/apache-artemis/${APACHE_ARTEMIS_VERSION}/apache-artemis-${APACHE_ARTEMIS_SNAPSHOT_VERSION}-bin.zip"
           wget -O apache-artemis-bin.zip ${APACHE_ARTEMIS_BIN_URL}
-          sed -i "/APACHE_ARTEMIS_VERSION/{n;s/value:.*/value: \"${ACTIVEMQ_ARTEMIS_VERSION}\"/}" modules/activemq-artemis-install/module.yaml
+          sed -i "/APACHE_ARTEMIS_VERSION/{n;s/value:.*/value: \"${APACHE_ARTEMIS_VERSION}\"/}" modules/activemq-artemis-install/module.yaml
           APACHE_ARTEMIS_BIN_MD5=($(md5sum apache-artemis-bin.zip))
           PREV_APACHE_ARTEMIS_BIN_URL=$(sed -n '/name: apache-artemis-bin/,$p' modules/activemq-artemis-install/module.yaml | grep -Pom 1 'url:.*')
           PREV_APACHE_ARTEMIS_BIN_MD5=$(sed -n '/name: apache-artemis-bin/,$p' modules/activemq-artemis-install/module.yaml | grep -Pom 1 'md5:.*')
