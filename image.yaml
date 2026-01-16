@@ -9,7 +9,7 @@ labels:
   - name: "io.k8s.display-name"
     value: "ActiveMQ Artemis Broker"
   - name: "maintainer"
-    value: "rkieley@redhat.com"
+    value: "ArkMQ <info@arkmq.org>"
 
 envs:
   - name: "AMQ_HOME"
