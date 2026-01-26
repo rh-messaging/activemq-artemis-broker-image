@@ -26,13 +26,13 @@ on:
         required: true
         default: true
         type: boolean
-      activemq_artemis_version:
-        description: 'ActiveMQ Artemis version, i.e. 2.20.0'
+      apache_artemis_version:
+        description: 'Apache Artemis version, i.e. 2.20.0'
         required: false
         default: 'latest'
         type: string
-      update_activemq_artemis_version:
-        description: 'Update ActiveMQ Artemis version'
+      update_apache_artemis_version:
+        description: 'Update Apache Artemis version'
         required: true
         default: true
         type: boolean
@@ -86,25 +86,25 @@ jobs:
           sed -i "s~from.*~from: \"${BASE_IMAGE}\"~g" image.yaml
           git commit --all --message "Update base image to ${BASE_IMAGE}" || echo "nothing to commit"
 
-      - name: Update ActiveMQ Artemis
-        if: ${{ inputs.update_activemq_artemis_version }}
+      - name: Update Apache Artemis
+        if: ${{ inputs.update_apache_artemis_version }}
         run: |
-          if [ "${{ inputs.activemq_artemis_version }}" = "latest" ]; then
-            ACTIVEMQ_ARTEMIS_VERSION="$(curl https://activemq.apache.org/components/artemis/documentation/latest/index.html | grep -oP '(?<=Apache ActiveMQ Artemis )[0-9]+.[0-9]+.[0-9]+')"
+          if [ "${{ inputs.apache_artemis_version }}" = "latest" ]; then
+            APACHE_ARTEMIS_VERSION="$(curl https://artemis.apache.org/components/artemis/documentation/latest/index.html | grep -oP '(?<=Apache Artemis )[0-9]+.[0-9]+.[0-9]+')"
           else
-            ACTIVEMQ_ARTEMIS_VERSION="${{ inputs.activemq_artemis_version }}"
+            APACHE_ARTEMIS_VERSION="${{ inputs.apache_artemis_version }}"
           fi
-          APACHE_ARTEMIS_BIN_URL="https://archive.apache.org/dist/activemq/activemq-artemis/${ACTIVEMQ_ARTEMIS_VERSION}/apache-artemis-${ACTIVEMQ_ARTEMIS_VERSION}-bin.zip"
+          APACHE_ARTEMIS_BIN_URL="https://archive.apache.org/dist/artemis/artemis/${APACHE_ARTEMIS_VERSION}/apache-artemis-${APACHE_ARTEMIS_VERSION}-bin.zip"
           if ! wget -q --method=HEAD ${APACHE_ARTEMIS_BIN_URL}; then
-            APACHE_ARTEMIS_BIN_URL="https://www.apache.org/dyn/closer.cgi?filename=activemq/activemq-artemis/${ACTIVEMQ_ARTEMIS_VERSION}/apache-artemis-${ACTIVEMQ_ARTEMIS_VERSION}-bin.zip&action=download"
+            APACHE_ARTEMIS_BIN_URL="https://www.apache.org/dyn/closer.cgi?filename=artemis/artemis/${APACHE_ARTEMIS_VERSION}/apache-artemis-${APACHE_ARTEMIS_VERSION}-bin.zip&action=download"
           fi
           wget -O apache-artemis-bin.zip ${APACHE_ARTEMIS_BIN_URL}
-          sed -i "/APACHE_ARTEMIS_VERSION/{n;s/value:.*/value: \"${ACTIVEMQ_ARTEMIS_VERSION}\"/}" modules/activemq-artemis-install/module.yaml
+          sed -i "/APACHE_ARTEMIS_VERSION/{n;s/value:.*/value: \"${APACHE_ARTEMIS_VERSION}\"/}" modules/activemq-artemis-install/module.yaml
           APACHE_ARTEMIS_BIN_MD5=($(md5sum apache-artemis-bin.zip))
           PREV_APACHE_ARTEMIS_BIN_URL=$(sed -n '/name: apache-artemis-bin/,$p' modules/activemq-artemis-install/module.yaml | grep -Pom 1 'url:.*')
           PREV_APACHE_ARTEMIS_BIN_MD5=$(sed -n '/name: apache-artemis-bin/,$p' modules/activemq-artemis-install/module.yaml | grep -Pom 1 'md5:.*')
           sed -i -e "s~${PREV_APACHE_ARTEMIS_BIN_URL}~url: ${APACHE_ARTEMIS_BIN_URL}~" -e "s~${PREV_APACHE_ARTEMIS_BIN_MD5}~md5: ${APACHE_ARTEMIS_BIN_MD5}~" modules/activemq-artemis-install/module.yaml
-          git commit --all --message "Update ActiveMQ Artemis to ${ACTIVEMQ_ARTEMIS_VERSION}" || echo "nothing to commit"
+          git commit --all --message "Update ActiveMQ Artemis to ${APACHE_ARTEMIS_VERSION}" || echo "nothing to commit"
 
       - name: Push commits
         run: |
