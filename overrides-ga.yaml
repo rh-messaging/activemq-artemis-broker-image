@@ -10,6 +10,8 @@ labels:
     value: "Red Hat AMQ Broker 7.14.0 Base"
   - name: "io.openshift.tags"
     value: "messaging,amq,java,jboss,xpaas,base"
+  - name: "maintainer"
+    value: "Red Hat, Inc."
   - name: "org.jboss.product"
     value: "amq"
   - name: "org.jboss.product.version"
