@@ -1,11 +1,16 @@
 name: Release
 
 env:
-  IMAGE_NAME: activemq-artemis-broker
+  IMAGE_NAME: arkmq-org-broker
 
 on:
   workflow_dispatch:
     inputs:
+      force_release_tag:
+        description: 'Force release tag'
+        required: true
+        default: false
+        type: boolean
       trigger_children:
         description: 'Trigger children'
         required: false
@@ -38,7 +43,7 @@ jobs:
           if [ "$RELEASE_TAG_COMMIT" != "$HEAD_COMMIT" ]; then
             git config user.name 'arkmq-bot'
             git config user.email 'bot@arkmq-org.io'
-            git tag -a ${RELEASE_TAG} -m ${RELEASE_TAG} --force
+            git tag -a ${RELEASE_TAG} -m ${RELEASE_TAG} $([ "${{ inputs.force_release_tag }}" = "true" ] && echo '--force')
             git push origin $RELEASE_TAG --force
           fi
           git log
@@ -71,7 +76,7 @@ jobs:
           script: |
             await github.rest.actions.createWorkflowDispatch({
               owner: context.repo.owner,
-              repo: 'activemq-artemis-broker-kubernetes-image',
+              repo: 'arkmq-org-broker-kubernetes-image',
               workflow_id: 'update.yml',
               ref: 'main',
               inputs: {
