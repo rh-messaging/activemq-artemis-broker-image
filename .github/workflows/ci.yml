@@ -22,6 +22,11 @@ on:
         required: false
         default: false
         type: boolean
+      trigger_release:
+        description: 'Trigger release'
+        required: false
+        default: false
+        type: boolean
 
 jobs:
   build:
@@ -32,7 +37,7 @@ jobs:
         run: >
           sudo apt-get update &&
           sudo apt-get install gcc libkrb5-dev pass &&
-          sudo pip install docker==5.0.3 docker-squash cekit odcs[client]
+          sudo pip install cekit odcs[client]
 
       - name: Checkout the repo
         uses: actions/checkout@v6
@@ -89,7 +94,7 @@ jobs:
           podman manifest push $IMAGE_NAME:dev.latest docker://quay.io/${{ secrets.QUAY_NAMESPACE }}/$IMAGE_NAME:snapshot
 
       - name: Trigger children
-        if: ${{ github.event_name == 'schedule' || inputs.trigger_children }}
+        if: ${{ github.event_name == 'schedule' || (inputs.trigger_children && !inputs.trigger_release) }}
         uses: actions/github-script@v8
         with:
           github-token: ${{ secrets.BOT_TOKEN }}
@@ -98,9 +103,25 @@ jobs:
               owner: context.repo.owner,
               repo: 'arkmq-org-broker-kubernetes-image',
               workflow_id: 'ci.yml',
-              ref: 'main',
+              ref: context.ref,
               inputs: {
                 snapshot: '${{ github.event_name == 'schedule' || inputs.snapshot }}',
                 trigger_children: 'true'
+              }
+            });
+
+      - name: Trigger release
+        if: ${{ inputs.trigger_release }}
+        uses: actions/github-script@v8
+        with:
+          github-token: ${{ secrets.BOT_TOKEN }}
+          script: |
+            await github.rest.actions.createWorkflowDispatch({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              ref: context.ref,
+              workflow_id: 'release.yml',
+              inputs: {
+                trigger_children: ${{ inputs.trigger_children }}
               }
             });

@@ -55,14 +55,11 @@ jobs:
     steps:
       - name: Checkout the repo
         uses: actions/checkout@v6
-        with:
-          token: ${{ secrets.BOT_TOKEN }}
 
       - name: Set up the repo
         run: |
           git config user.name 'arkmq-bot'
-          git config user.email 'bot@arkmq-org.io'
-          git push
+          git config user.email 'bot@arkmq.org'
 
       - name: Update base image
         id: update_base_image
@@ -80,7 +77,7 @@ jobs:
         id: update_apache_artemis_version
         if: ${{ github.event_name == 'schedule' || inputs.update_apache_artemis_version }}
         run: |
-          if [ "${{ github.event_name }}" = "push" ] || [ "${{ inputs.apache_artemis_version }}" = "latest" ]; then
+          if [ "${{ github.event_name }}" = "schedule" ] || [ "${{ inputs.apache_artemis_version }}" = "latest" ]; then
             APACHE_ARTEMIS_VERSION="$(curl https://artemis.apache.org/components/artemis/documentation/latest/index.html | grep -oP '(?<=Apache Artemis )[0-9]+.[0-9]+.[0-9]+')"
           else
             APACHE_ARTEMIS_VERSION="${{ inputs.apache_artemis_version }}"
@@ -118,10 +115,10 @@ jobs:
         run: |
           git push
 
-      - name: Trigger release
-        if: ${{ (github.event_name == 'schedule' && steps.update_apache_artemis_version.outputs.status == 'DONE') || inputs.trigger_release != 'none' }}
+      - name: Trigger CI
         env:
           TRIGGER_CHILDREN: ${{ (github.event_name == 'schedule' && steps.update_apache_artemis_version.outputs.status == 'DONE') || inputs.trigger_release == 'all' }}
+          TRIGGER_RELEASE: ${{ (github.event_name == 'schedule' && steps.update_apache_artemis_version.outputs.status == 'DONE') || inputs.trigger_release != 'none' }}
         uses: actions/github-script@v8
         with:
           github-token: ${{ secrets.BOT_TOKEN }}
@@ -129,9 +126,10 @@ jobs:
             await github.rest.actions.createWorkflowDispatch({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              workflow_id: 'release.yml',
               ref: context.ref,
+              workflow_id: 'ci.yml',
               inputs: {
-                trigger_children: process.env.TRIGGER_CHILDREN
+                trigger_children: process.env.TRIGGER_CHILDREN,
+                trigger_release: process.env.TRIGGER_RELEASE
               }
             });
