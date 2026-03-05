@@ -103,7 +103,7 @@ jobs:
               owner: context.repo.owner,
               repo: 'arkmq-org-broker-kubernetes-image',
               workflow_id: 'ci.yml',
-              ref: 'main',
+              ref: context.ref,
               inputs: {
                 snapshot: '${{ github.event_name == 'schedule' || inputs.snapshot }}',
                 trigger_children: 'true'
