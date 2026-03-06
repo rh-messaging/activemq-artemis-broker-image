@@ -4,8 +4,6 @@ env:
   IMAGE_NAME: arkmq-org-broker
 
 on:
-  push:
-    branches: [ main ]
   pull_request:
     branches: [ main ]
   schedule:

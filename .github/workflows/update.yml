@@ -55,6 +55,8 @@ jobs:
     steps:
       - name: Checkout the repo
         uses: actions/checkout@v6
+        with:
+          token: ${{ secrets.BOT_TOKEN }}
 
       - name: Set up the repo
         run: |
@@ -71,7 +73,7 @@ jobs:
             BASE_IMAGE="${{ inputs.base_image }}"
           fi
           sed -i "s~from.*~from: \"${BASE_IMAGE}\"~g" image.yaml
-          git commit --all --message "Update base image to ${BASE_IMAGE}" && echo "status=DONE" >> $GITHUB_OUTPUT || echo "nothing to commit"
+          git commit --all --message "[NO-ISSUE] Update base image to ${BASE_IMAGE}" && echo "status=DONE" >> $GITHUB_OUTPUT || echo "nothing to commit"
 
       - name: Update Apache Artemis
         id: update_apache_artemis_version
@@ -92,7 +94,7 @@ jobs:
           PREV_APACHE_ARTEMIS_BIN_URL=$(sed -n '/name: apache-artemis-bin/,$p' modules/apache-artemis-install/module.yaml | grep -Pom 1 'url:.*')
           PREV_APACHE_ARTEMIS_BIN_MD5=$(sed -n '/name: apache-artemis-bin/,$p' modules/apache-artemis-install/module.yaml | grep -Pom 1 'md5:.*')
           sed -i -e "s~${PREV_APACHE_ARTEMIS_BIN_URL}~url: ${APACHE_ARTEMIS_BIN_URL}~" -e "s~${PREV_APACHE_ARTEMIS_BIN_MD5}~md5: ${APACHE_ARTEMIS_BIN_MD5}~" modules/apache-artemis-install/module.yaml
-          git commit --all --message "Update Apache Artemis to ${APACHE_ARTEMIS_VERSION}" && echo "status=DONE" >> $GITHUB_OUTPUT || echo "nothing to commit"
+          git commit --all --message "[NO-ISSUE] Update Apache Artemis to ${APACHE_ARTEMIS_VERSION}" && echo "status=DONE" >> $GITHUB_OUTPUT || echo "nothing to commit"
 
       - name: Update version
         id: update_version
@@ -108,7 +110,7 @@ jobs:
           VERSION_PATCH=${VERSION_PATCH/\*/${CURRENT_VERSION_PATCH}} && VERSION_PATCH=${VERSION_PATCH/+/$((CURRENT_VERSION_PATCH+1))}
           VERSION="${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}"
           sed -i "s~^version:.*~version: \"${VERSION}\"~g" image.yaml
-          git commit --all --message "Update version to ${VERSION}" && echo "status=DONE" >> $GITHUB_OUTPUT || echo "nothing to commit"
+          git commit --all --message "[NO-ISSUE] Update version to ${VERSION}" && echo "status=DONE" >> $GITHUB_OUTPUT || echo "nothing to commit"
 
       - name: Push commits
         if: ${{ steps.update_version.outputs.status == 'DONE' || steps.update_base_image.outputs.status == 'DONE' || steps.update_apache_artemis_version.outputs.status == 'DONE' }}
