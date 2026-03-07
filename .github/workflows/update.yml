@@ -67,7 +67,7 @@ jobs:
         id: update_base_image
         if: ${{ github.event_name == 'schedule' || inputs.update_base_image }}
         run: |
-          if [ "${{ inputs.base_image }}" = "latest" ]; then
+          if [ "${{ github.event_name }}" = "schedule" ] || [ "${{ inputs.base_image }}" = "latest" ]; then
             BASE_IMAGE="registry.access.redhat.com/ubi9/openjdk-17@$(skopeo inspect docker://registry.access.redhat.com/ubi9/openjdk-17:latest | jq -r '.Digest')"
           else
             BASE_IMAGE="${{ inputs.base_image }}"
