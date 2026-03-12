@@ -120,7 +120,7 @@ jobs:
       - name: Trigger CI
         env:
           TRIGGER_CHILDREN: ${{ (github.event_name == 'schedule' && steps.update_apache_artemis_version.outputs.status == 'DONE') || inputs.trigger_release == 'all' }}
-          TRIGGER_RELEASE: ${{ (github.event_name == 'schedule' && steps.update_apache_artemis_version.outputs.status == 'DONE') || inputs.trigger_release != 'none' }}
+          TRIGGER_RELEASE: ${{ (github.event_name == 'schedule' && steps.update_apache_artemis_version.outputs.status == 'DONE') || inputs.trigger_release == 'this' || inputs.trigger_release == 'all' }}
         uses: actions/github-script@v8
         with:
           github-token: ${{ secrets.BOT_TOKEN }}
