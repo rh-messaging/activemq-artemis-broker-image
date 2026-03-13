@@ -118,9 +118,9 @@ jobs:
           git push
 
       - name: Trigger CI
+        if: ${{ (github.event_name == 'schedule' && steps.update_apache_artemis_version.outputs.status == 'DONE') || inputs.trigger_release == 'this' || inputs.trigger_release == 'all' }}
         env:
           TRIGGER_CHILDREN: ${{ (github.event_name == 'schedule' && steps.update_apache_artemis_version.outputs.status == 'DONE') || inputs.trigger_release == 'all' }}
-          TRIGGER_RELEASE: ${{ (github.event_name == 'schedule' && steps.update_apache_artemis_version.outputs.status == 'DONE') || inputs.trigger_release == 'this' || inputs.trigger_release == 'all' }}
         uses: actions/github-script@v8
         with:
           github-token: ${{ secrets.BOT_TOKEN }}
@@ -132,6 +132,6 @@ jobs:
               workflow_id: 'ci.yml',
               inputs: {
                 trigger_children: process.env.TRIGGER_CHILDREN,
-                trigger_release: process.env.TRIGGER_RELEASE
+                trigger_release: true
               }
             });
