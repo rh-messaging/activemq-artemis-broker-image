@@ -3,7 +3,7 @@ schema_version: 1
 name: "arkmq-org/arkmq-org-broker"
 description: "ArkMQ Broker is a container image for running Apache Artemis messaging broker in containerized environments"
 version: "3.0.0"
-from: "registry.access.redhat.com/ubi9/openjdk-17@sha256:879677c1fda39069a8d5708caf39c6c36ccb31563296c1dbfcdbd6b0c7c5100d"
+from: "registry.access.redhat.com/ubi9/openjdk-17@sha256:f66999826a8c22bbb8df41c760b5a1ec1651450670ed74f7bf7f02bd631f3146"
 
 labels:
   - name: "io.k8s.display-name"
