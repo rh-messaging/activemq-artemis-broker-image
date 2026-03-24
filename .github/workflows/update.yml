@@ -80,7 +80,7 @@ jobs:
         if: ${{ github.event_name == 'schedule' || inputs.update_apache_artemis_version }}
         run: |
           if [ "${{ github.event_name }}" = "schedule" ] || [ "${{ inputs.apache_artemis_version }}" = "latest" ]; then
-            APACHE_ARTEMIS_VERSION="$(curl https://artemis.apache.org/components/artemis/documentation/latest/index.html | grep -oP '(?<=Apache Artemis )[0-9]+.[0-9]+.[0-9]+')"
+            APACHE_ARTEMIS_VERSION="$(curl https://artemis.apache.org/components/artemis/download/ | grep -oP '(?<=Apache Artemis )[0-9]+.[0-9]+.[0-9]+')"
           else
             APACHE_ARTEMIS_VERSION="${{ inputs.apache_artemis_version }}"
           fi
