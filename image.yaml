@@ -2,7 +2,7 @@ schema_version: 1
 
 name: "arkmq-org/arkmq-org-broker"
 description: "ArkMQ Broker is a container image for running Apache Artemis messaging broker in containerized environments"
-version: "3.0.1"
+version: "3.0.2"
 from: "registry.access.redhat.com/ubi9/openjdk-17@sha256:97c7dcbc08fc71766a83dea0849cec76585ec0eda0b69c313c72c28f909f5c82"
 
 labels:
@@ -60,6 +60,8 @@ modules:
     - name: apache.artemis.install
     - name: apache.artemis.chown
 run:
-  user: 185
+  # The user is in the group 0 to have access to the volumes mounted
+  # by Kubernetes that are typically owned by UID 0 (root) and GID 0 (root).
+  user: "185:0"
   cmd:
     - "/opt/amq/bin/launch.sh"
