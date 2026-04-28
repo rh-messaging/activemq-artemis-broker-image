@@ -1,21 +1,21 @@
 #See https://docs.cekit.io/en/latest/descriptor/overrides.html
 name: &name "amq-broker-7/amq-broker-713-rhel9"
-description: "Red Hat AMQ Broker 7.13.4 container image"
-version: &version "7.13.4"
+description: "Red Hat AMQ Broker 7.13.5 container image"
+version: &version "7.13.5"
 from: "registry.redhat.io/ubi9/openjdk-17@sha256:05c522f80be9c2301325c5c521e3848c4cbce23fc4ea8026a40f7d6a49ee73bf"
 labels:
   - name: "com.redhat.component"
     value: "amq-broker-rhel9-container"
   - name: "io.k8s.display-name"
-    value: "Red Hat AMQ Broker 7.13.4 Base"
+    value: "Red Hat AMQ Broker 7.13.5 Base"
   - name: "io.openshift.tags"
     value: "messaging,amq,java,jboss,xpaas,base"
   - name: "org.jboss.product"
     value: "amq"
   - name: "org.jboss.product.version"
-    value: "7.13.4"
+    value: "7.13.5"
   - name: "org.jboss.product.amq.version"
-    value: "7.13.4"
+    value: "7.13.5"
 envs:
   - name: "JBOSS_PRODUCT"
     value: "AMQ"
@@ -24,9 +24,9 @@ envs:
   - name: "JBOSS_IMAGE_VERSION"
     value: *version
   - name: "JBOSS_AMQ_VERSION"
-    value: "7.13.4"
+    value: "7.13.5"
   - name: "PRODUCT_VERSION"
-    value: "7.13.4"
+    value: "7.13.5"
   - name: "APACHE_ARTEMIS_VERSION"
     value: "2.40.0.redhat-00015"
 artifacts:
@@ -71,9 +71,9 @@ osbs:
           - aarch64
       image_build_method: imagebuilder
       tags:
-        - "7.13.4.CON.1.CR2"
-        - "7.13.4.CON.1"
-        - "7.13.4"
+        - "7.13.5.CON.1.CR1"
+        - "7.13.5.CON.1"
+        - "7.13.5"
   repository:
     name: containers/amq-broker
     branch: amq-broker-7.13-rhel-9
