@@ -6,11 +6,11 @@ version: 1.4
 artifacts:
     - name: apache-artemis-bin
       target: apache-artemis-bin.zip
-      url: https://archive.apache.org/dist/artemis/artemis/2.53.0/apache-artemis-2.53.0-bin.zip
+      url: https://www.apache.org/dyn/closer.cgi?filename=artemis/artemis/2.54.0/apache-artemis-2.54.0-bin.zipurl: https://archive.apache.org/dist/artemis/artemis/2.53.0/apache-artemis-2.53.0-bin.zipaction=download
       description: "Apache Artemis distribution zip file"
-      md5: ee7b115c49a647208791ae01b0aa72eb
+      md5: 8bc8347bd78a6e7e8f781603e95215cd
 execute:
     - script: install.sh
 envs:
     - name: "APACHE_ARTEMIS_VERSION"
-      value: "2.53.0"
+      value: "2.54.0"
