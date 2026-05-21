@@ -6,7 +6,7 @@ version: 1.4
 artifacts:
     - name: apache-artemis-bin
       target: apache-artemis-bin.zip
-      url: https://www.apache.org/dyn/closer.cgi?filename=artemis/artemis/2.54.0/apache-artemis-2.54.0-bin.zipurl: https://archive.apache.org/dist/artemis/artemis/2.53.0/apache-artemis-2.53.0-bin.zipaction=download
+      url: https://archive.apache.org/dist/artemis/artemis/2.54.0/apache-artemis-2.54.0-bin.zip
       description: "Apache Artemis distribution zip file"
       md5: 8bc8347bd78a6e7e8f781603e95215cd
 execute:
