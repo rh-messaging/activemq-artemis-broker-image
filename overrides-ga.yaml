@@ -36,14 +36,14 @@ envs:
   - name: "PRODUCT_VERSION"
     value: "8.0.0"
   - name: "APACHE_ARTEMIS_VERSION"
-    value: "2.55.0.temporary-redhat-00014"
+    value: "2.55.0.temporary-redhat-00015"
 artifacts:
   - name: apache-artemis-bin
     target: apache-artemis-bin.zip
     url: http://download.devel.redhat.com/rcm-guest/staging/amq/scratch/amq-broker-8.0.0.SR1/amq-broker-8.0.0.SR1-bin.zip
-    md5: 13431f5f11a3711dffca9aad2442652c
+    md5: 5d74f699219d990d072488ad8e8fbc97
     source-url: http://download.devel.redhat.com/rcm-guest/staging/amq/scratch/amq-broker-8.0.0.SR1/amq-broker-8.0.0.SR1-src.zip
-    source-md5: 6a07f3fbc89d845a7e1e0777f8e1ed1e
+    source-md5: 583c3cd3a475190f54941f5199f9636d
 modules:
   repositories:
     - name: cct_module
