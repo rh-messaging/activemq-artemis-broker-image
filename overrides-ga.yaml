@@ -30,12 +30,12 @@ envs:
   - name: "PRODUCT_VERSION"
     value: "7.14.0"
   - name: "APACHE_ARTEMIS_VERSION"
-    value: "2.53.0.PATCH.3319"
+    value: "2.53.0.PATCH.3323"
 artifacts:
   - name: apache-artemis-bin
     target: apache-artemis-bin.zip
-    url: http://download.devel.redhat.com/devel/candidates/amq/amq-broker-7.14.0.PATCH.3319/amq-broker-7.14.0.PATCH.3319-bin.zip
-    md5: ad23c4e5759c19ce46085cb5b431aef9
+    url: http://download.devel.redhat.com/devel/candidates/amq/amq-broker-7.14.0.PATCH.3323/amq-broker-7.14.0.PATCH.3323-bin.zip
+    md5: e3a9202716c96b1b54ed1f1ecc3ddee7
     source-url: http://download.devel.redhat.com/devel/candidates/amq/amq-broker-7.14.0.CR3/amq-broker-7.14.0.CR3-src.zip
     source-md5: 8a3697a5e1351d4fb96b34dc97664696
 modules:
